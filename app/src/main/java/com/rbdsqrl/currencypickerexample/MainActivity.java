@@ -17,7 +17,7 @@ CurrencyPicker currencyPicker;
     }
 
     private void showPicker() {
-        currencyPicker =  CurrencyPicker.newInstance("Select Currency");
+        currencyPicker =  CurrencyPicker.newInstance();
         currencyPicker.setListener(new CurrencyPickerListener() {
             @Override
             public void onSelectCurrency(String name, String code, String symbol) {

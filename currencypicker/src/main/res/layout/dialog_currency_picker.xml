@@ -7,12 +7,22 @@
     android:focusableInTouchMode="true"
     android:orientation="vertical">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/color_stroke"
+        android:gravity="center_horizontal"
+        android:padding="10dp"
+        android:text="@string/title"
+        android:textColor="@color/color_fill"
+        android:textSize="18sp" />
+
     <EditText
         android:id="@+id/currency_code_picker_search"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:background="@drawable/background_edit_text"
+        android:background="@drawable/edit_text"
         android:drawableLeft="@drawable/ic_search"
         android:drawableStart="@drawable/ic_search"
         android:hint="@string/search"

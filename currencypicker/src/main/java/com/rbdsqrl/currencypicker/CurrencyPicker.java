@@ -2,15 +2,21 @@ package com.rbdsqrl.currencypicker;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Point;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
+import android.view.Display;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.EditText;
 
 import java.util.ArrayList;
@@ -30,11 +36,8 @@ public class CurrencyPicker extends DialogFragment {
         this.currencyPickerListener = currencyPickerListener;
     }
 
-    public static CurrencyPicker newInstance(String dialogTitle) {
+    public static CurrencyPicker newInstance() {
         CurrencyPicker picker = new CurrencyPicker();
-        Bundle bundle = new Bundle();
-        bundle.putString("dialogTitle", dialogTitle);
-        picker.setArguments(bundle);
         return picker;
     }
 
@@ -51,14 +54,9 @@ public class CurrencyPicker extends DialogFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.dialog_currency_picker, null);
-        Bundle args = getArguments();
-        if (args != null && getDialog() != null) {
-            String dialogTitle = args.getString("dialogTitle");
-            getDialog().setTitle(dialogTitle);
-            int width = getResources().getDimensionPixelSize(R.dimen.cp_dialog_width);
-            int height = getResources().getDimensionPixelSize(R.dimen.cp_dialog_height);
-            getDialog().getWindow().setLayout(width, height);
-        }
+        context =  getContext();
+
+
 
         selectedCurrenciesList = new ArrayList<>(currencyDetailList.size());
         selectedCurrenciesList.addAll(currencyDetailList);
@@ -116,5 +114,17 @@ public class CurrencyPicker extends DialogFragment {
         currencyRVAdapter.notifyDataSetChanged();
     }
 
-
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (getDialog() != null) {
+            Window window = getDialog().getWindow();
+            Point size = new Point();
+            Display display = window.getWindowManager().getDefaultDisplay();
+            display.getSize(size);
+            int width = size.x;
+            window.setLayout((int) (width * 0.6), WindowManager.LayoutParams.WRAP_CONTENT);
+            window.setGravity(Gravity.CENTER);
+        }
+    }
 }
