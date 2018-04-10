@@ -17,7 +17,7 @@ public class MainActivity extends AppCompatActivity implements CurrencyPickerLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         //To show a picker dialog
-        //showPicker();
+        showPicker();
 
         //To inflate a picker fragment in a frame layout
         loadCurrencyFragment();
@@ -32,8 +32,8 @@ public class MainActivity extends AppCompatActivity implements CurrencyPickerLis
     private void showPicker() {
         //pop up dialog
         currencyPicker = CurrencyPicker.newInstance();
-        //adjust the width of the layout, width = widthFactor * screenWidth
-        currencyPicker.setWidthFactor(0.8);
+        //adjust the width of the layout, width = widthFactor * maxDialogWidth(window width)
+        //currencyPicker.setWidthFactor(0.8);
         currencyPicker.setListener(new CurrencyPickerListener() {
             @Override
             public void onSelectCurrency(String name, String code, String symbol) {
