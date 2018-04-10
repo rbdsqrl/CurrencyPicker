@@ -2,28 +2,24 @@ package com.rbdsqrl.currencypicker;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.graphics.Point;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.Display;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.EditText;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-public class CurrencyPicker extends DialogFragment {
+
+public class PickerView extends Fragment {
     private EditText etSearch;
     private RecyclerView rvCurrency;
     private CurrencyPickerListener currencyPickerListener;
@@ -31,35 +27,27 @@ public class CurrencyPicker extends DialogFragment {
     private CurrencyRVAdapter currencyRVAdapter;
     private List<CurrencyDetail> selectedCurrenciesList = new ArrayList<>();
     private Context context;
-    private double widthFactor;
 
-    public void setListener(CurrencyPickerListener currencyPickerListener){
-        this.currencyPickerListener = currencyPickerListener;
-    }
-
-    public static CurrencyPicker newInstance() {
-        CurrencyPicker picker = new CurrencyPicker();
-        return picker;
-    }
-
-    public CurrencyPicker() {
-        widthFactor = 0.6;
+    public PickerView() {
         setCurrenciesList(CurrencyDetail.getAllCurrencies());
     }
 
-    public void setCurrenciesList(List<CurrencyDetail> newCurrencies) {
-        this.currencyDetailList.clear();
-        this.currencyDetailList.addAll(newCurrencies);
+    public static PickerView newInstance() {
+        PickerView fragment = new PickerView();
+        return fragment;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.dialog_currency_picker, null);
+        Log.i("onCreateView","called");
+        View view = inflater.inflate(R.layout.fragment_currency, null);
         context =  getContext();
-
-
-
         selectedCurrenciesList = new ArrayList<>(currencyDetailList.size());
         selectedCurrenciesList.addAll(currencyDetailList);
 
@@ -96,14 +84,25 @@ public class CurrencyPicker extends DialogFragment {
     }
 
     @Override
-    public void dismiss() {
-        if (getDialog() != null) {
-            super.dismiss();
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof CurrencyPickerListener) {
+            currencyPickerListener = (CurrencyPickerListener) context;
         } else {
-            getFragmentManager().popBackStack();
+            throw new RuntimeException(context.toString() + " must implement OnFragmentInteractionListener");
         }
     }
 
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        currencyPickerListener = null;
+    }
+
+    public void setCurrenciesList(List<CurrencyDetail> newCurrencies) {
+        this.currencyDetailList.clear();
+        this.currencyDetailList.addAll(newCurrencies);
+    }
 
     @SuppressLint("DefaultLocale")
     private void search(String text) {
@@ -114,23 +113,5 @@ public class CurrencyPicker extends DialogFragment {
             }
         }
         currencyRVAdapter.notifyDataSetChanged();
-    }
-
-    public void setWidthFactor(double widthFactor){
-        this.widthFactor = widthFactor;
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        if (getDialog() != null) {
-            Window window = getDialog().getWindow();
-            Point size = new Point();
-            Display display = window.getWindowManager().getDefaultDisplay();
-            display.getSize(size);
-            int width = size.x;
-            window.setLayout((int) (width * widthFactor), WindowManager.LayoutParams.WRAP_CONTENT);
-            window.setGravity(Gravity.CENTER);
-        }
     }
 }
