@@ -17,7 +17,7 @@ public class MainActivity extends AppCompatActivity implements CurrencyPickerLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         //To show a picker dialog
-        showPicker();
+       // showPicker();
 
         //To inflate a picker fragment in a frame layout
         loadCurrencyFragment();
