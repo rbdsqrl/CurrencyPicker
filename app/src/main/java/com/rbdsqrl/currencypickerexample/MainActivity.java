@@ -10,7 +10,6 @@ import com.rbdsqrl.currencypicker.CurrencyPicker;
 import com.rbdsqrl.currencypicker.CurrencyPickerListener;
 
 public class MainActivity extends AppCompatActivity implements CurrencyPickerListener {
-    CurrencyPicker currencyPicker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +30,7 @@ public class MainActivity extends AppCompatActivity implements CurrencyPickerLis
 
     private void showPicker() {
         //pop up dialog
-        currencyPicker = CurrencyPicker.newInstance();
+        final CurrencyPicker currencyPicker = CurrencyPicker.newInstance();
         //adjust the width of the layout, width = widthFactor * maxDialogWidth(window width)
         //currencyPicker.setWidthFactor(0.8);
         currencyPicker.setListener(new CurrencyPickerListener() {
