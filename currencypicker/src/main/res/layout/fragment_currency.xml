@@ -29,7 +29,7 @@
         android:padding="10dp"
         android:textColor="@color/fill_color"
         android:textColorHint="@color/stroke_color"
-        android:textSize="12sp"
+        android:textSize="@dimen/default_text_size"
         app:fontFamily="@font/open_sans" />
 
     <android.support.v7.widget.RecyclerView

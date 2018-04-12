@@ -24,7 +24,7 @@
         android:padding="10dp"
         android:textColor="@color/fill_color"
         android:textColorHint="@color/stroke_color"
-        android:textSize="14sp" />
+        android:textSize="@dimen/default_text_size" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView_currency"
