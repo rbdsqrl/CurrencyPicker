@@ -12,8 +12,8 @@
 
         <ImageView
             android:id="@+id/iv_flag"
-            android:layout_width="35dp"
-            android:layout_height="35dp" />
+            android:layout_width="@dimen/image_size"
+            android:layout_height="@dimen/image_size" />
 
         <TextView
             android:id="@+id/tv_name"
@@ -23,6 +23,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginStart="10dp"
             android:layout_weight="1"
+            android:textSize="@dimen/default_text_size"
             android:gravity="center_vertical"
             android:textColor="@color/fill_color"
             android:textStyle="bold"
