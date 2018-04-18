@@ -125,6 +125,7 @@ public class CurrencyPicker extends DialogFragment {
         super.onResume();
         if (getDialog() != null) {
             Window window = getDialog().getWindow();
+            window.requestFeature(Window.FEATURE_NO_TITLE);
             Point size = new Point();
             Display display = window.getWindowManager().getDefaultDisplay();
             display.getSize(size);
