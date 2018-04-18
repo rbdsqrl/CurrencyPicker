@@ -2,7 +2,7 @@ package com.rbdsqrl.currencypickerexample;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import com.rbdsqrl.currencypicker.PickerView;
@@ -15,11 +15,6 @@ public class MainActivity extends AppCompatActivity implements CurrencyPickerLis
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //To show a picker dialog
-       // showPicker();
-
-        //To inflate a picker fragment in a frame layout
-        loadCurrencyFragment();
     }
 
     private void loadCurrencyFragment() {
@@ -48,5 +43,16 @@ public class MainActivity extends AppCompatActivity implements CurrencyPickerLis
     @Override
     public void onSelectCurrency(String name, String code, String symbol) {
         Toast.makeText(getBaseContext(),name + " " + code + " " + symbol,Toast.LENGTH_SHORT).show();
+    }
+
+    public void openCurrency(View v){
+        switch (v.getId()){
+            case R.id.btn_dialog:
+                showPicker();
+                break;
+            case R.id.btn_fragment:
+                loadCurrencyFragment();
+                break;
+        }
     }
 }
