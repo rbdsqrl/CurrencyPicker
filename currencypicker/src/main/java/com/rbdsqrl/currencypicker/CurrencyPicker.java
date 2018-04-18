@@ -1,9 +1,12 @@
 package com.rbdsqrl.currencypicker;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Point;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -55,11 +58,14 @@ public class CurrencyPicker extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        if(getDialog()!=null){
+            Window window = getDialog().getWindow();
+            window.requestFeature(Window.FEATURE_NO_TITLE);
+        }
+
         View view = inflater.inflate(R.layout.dialog_currency_picker, null);
         context =  getContext();
-
-
-
         selectedCurrenciesList = new ArrayList<>(currencyDetailList.size());
         selectedCurrenciesList.addAll(currencyDetailList);
 
@@ -125,7 +131,6 @@ public class CurrencyPicker extends DialogFragment {
         super.onResume();
         if (getDialog() != null) {
             Window window = getDialog().getWindow();
-            window.requestFeature(Window.FEATURE_NO_TITLE);
             Point size = new Point();
             Display display = window.getWindowManager().getDefaultDisplay();
             display.getSize(size);
