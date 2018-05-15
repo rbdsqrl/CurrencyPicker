@@ -10,11 +10,13 @@ public class ZCountry {
 
     String phoneCode;
     String countryName;
+    String region;
     Bitmap flagID;
 
-    public ZCountry(String phoneCode, String countryName, Bitmap flagID) {
+    public ZCountry(String phoneCode, String countryName, Bitmap flagID, String region) {
         this.phoneCode = phoneCode;
         this.countryName = countryName;
+        this.region = region;
         this.flagID = flagID;
     }
 
@@ -42,9 +44,17 @@ public class ZCountry {
         this.flagID = flagID;
     }
 
-    public static ZCountry generateZCountry(CCPCountry ccpCountry, Context context){
+    public String getRegion() {
+        return region;
+    }
+
+    public void setRegion(String region) {
+        this.region = region;
+    }
+
+    public static ZCountry build(CCPCountry ccpCountry, Context context){
         Bitmap flag = BitmapFactory.decodeResource(context.getResources(),ccpCountry.getFlagID());
-        return new ZCountry(ccpCountry.getPhoneCode(), ccpCountry.getName(), flag);
+        return new ZCountry(ccpCountry.getPhoneCode(), ccpCountry.getName(), flag, ccpCountry.getNameCode());
     }
 
     @Override
@@ -52,6 +62,7 @@ public class ZCountry {
         return "ZCountry{" +
                 "phoneCode='" + phoneCode + '\'' +
                 ", countryName='" + countryName + '\'' +
+                ", region='" + region + '\'' +
                 ", flagID=" + flagID +
                 '}';
     }
