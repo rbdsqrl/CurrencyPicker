@@ -47,7 +47,7 @@ public class PhoneCodePicker extends BasePicker {
         codeRVAdapter = new CodeRVAdapter(new CodeRVAdapter.Listener() {
             @Override
             public void onPicked(CCPCountry ccpCountry) {
-                codePickerListener.onPhoneCodePicked(ZCountry.generateZCountry(ccpCountry, context));
+                codePickerListener.onPhoneCodePicked(ZCountry.build(ccpCountry, context));
             }
         }, context);
         selectedCountries = new ArrayList<>(masterCountries.size());
