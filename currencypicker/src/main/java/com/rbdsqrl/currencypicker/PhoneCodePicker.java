@@ -70,6 +70,8 @@ public class PhoneCodePicker extends BasePicker {
                 search(s.toString());
             }
         });
+
+        editText.setText(context.getResources().getConfiguration().locale.getDisplayCountry(new Locale("en","US" )));
     }
 
     @SuppressLint("DefaultLocale")

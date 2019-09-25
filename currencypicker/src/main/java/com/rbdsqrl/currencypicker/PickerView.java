@@ -80,6 +80,7 @@ public class PickerView extends Fragment {
             }
         });
 
+        etSearch.setText(context.getResources().getConfiguration().locale.getDisplayCountry(new Locale("en","US" )));
         return view;
     }
 

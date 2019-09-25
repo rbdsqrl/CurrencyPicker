@@ -95,6 +95,8 @@ public class CurrencyPicker extends BasePicker {
             }
         });
 
+        etSearch.setText(context.getResources().getConfiguration().locale.getDisplayCountry(new Locale("en","US" )));
+
     }
 
     @Override
